@@ -14,7 +14,6 @@ import org.mockito.ArgumentMatchers;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CompleteTest {
 
     /* TODO: The following
