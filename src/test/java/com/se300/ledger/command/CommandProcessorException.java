@@ -6,7 +6,7 @@ package com.se300.ledger.command;
  *
  * @author  Sergey L. Sundukovskiy
  * @version 1.0
- * @since   2021-09-12
+ * @since   2025-09-25
  */
 public class CommandProcessorException extends Exception {
 

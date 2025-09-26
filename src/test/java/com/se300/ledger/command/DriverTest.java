@@ -1,27 +1,35 @@
 package com.se300.ledger.command;
 
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.util.Objects;
+import java.io.InputStream;
 
 /**
  * Test Driver Class for testing Blockchain
  *
  * @author  Sergey L. Sundukovskiy
  * @version 1.0
- * @since   2023-10-11
+ * @since   2025-09-25
  */
 public class DriverTest {
 
-    @Test
-    public void testDriver() throws URISyntaxException {
+    /**
+     * Main method to run the test
+     *
+     * @param args command line arguments
+     */
+    public static void main(String[] args) {
+        DriverTest test = new DriverTest();
+        test.testDriver();
+    }
 
-        Path path = new File(Objects.requireNonNull(getClass().getResource("/ledger.script")).getFile()).toPath();
+    public void testDriver() {
+        // Get the input stream for the resource
+        InputStream inputStream = getClass().getResourceAsStream("/ledger.script");
+        if (inputStream == null) {
+            throw new RuntimeException("Could not find ledger.script in classpath");
+        }
 
+        // Process the input stream directly
         CommandProcessor processor = new CommandProcessor();
-        processor.processCommandFile (path.toString());
+        processor.processCommandInputStream(inputStream);
     }
 }

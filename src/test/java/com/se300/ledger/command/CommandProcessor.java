@@ -1,9 +1,11 @@
 package com.se300.ledger.command;
 
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,7 +24,7 @@ import com.se300.ledger.*;
  *
  * @author  Sergey L. Sundukovskiy
  * @version 1.0
- * @since   2021-09-12
+ * @since   2025-09-25
  */
 public class CommandProcessor {
 
@@ -171,30 +173,44 @@ public class CommandProcessor {
      * Process File from the command line
      */
     public void processCommandFile(String fileName){
-
         List<String> tokens = new ArrayList<>();
-
         AtomicInteger atomicInteger = new AtomicInteger(0);
 
         //Process all the lines in the file
         try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
-            stream
-                    .forEach(line -> {
-                        try {
-                            atomicInteger.getAndIncrement();
-                            if(!line.trim().startsWith("#") && line.trim().length() != 0) {
-                                processCommand(line);
-                            }
-                        } catch (CommandProcessorException e) {
-                            e.setLineNumber(atomicInteger.get());
-                            System.out.println("Failed due to: " + e.getReason() + " for Command: " + e.getCommand()
-                                    + " On Line Number: " + e.getLineNumber());
-                        }
-                    });
-
+            processCommandStream(stream, atomicInteger);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    /**
+     * Process command stream
+     */
+    public void processCommandStream(Stream<String> stream, AtomicInteger lineCounter) {
+        stream.forEach(line -> {
+            try {
+                lineCounter.getAndIncrement();
+                if(!line.trim().startsWith("#") && line.trim().length() != 0) {
+                    processCommand(line);
+                }
+            } catch (CommandProcessorException e) {
+                e.setLineNumber(lineCounter.get());
+                System.out.println("Failed due to: " + e.getReason() + " for Command: " + e.getCommand()
+                        + " On Line Number: " + e.getLineNumber());
+            }
+        });
+    }
+
+    /**
+     * Process command stream from an input stream
+     */
+    public void processCommandInputStream(InputStream inputStream) {
+        AtomicInteger atomicInteger = new AtomicInteger(0);
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            processCommandStream(reader.lines(), atomicInteger);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

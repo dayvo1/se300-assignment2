@@ -8,7 +8,7 @@ import static java.util.Map.*;
  *
  * @author  Sergey L. Sundukovskiy
  * @version 1.0
- * @since   2023-10-11
+ * @since   2025-09-25
  */
 public class Ledger {
     private String name;

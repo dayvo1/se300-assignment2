@@ -1,5 +1,5 @@
 # create-ledger <name> description <description> seed <seed>
-create-ledger test description "test ledger 2023" seed "chapman"
+create-ledger test description "test ledger 2025" seed "chapman"
 # create-account <account-id>
 create-account mary
 create-account bob
