@@ -1,19 +1,5 @@
 package com.se300.ledger.complete;
 
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.condition.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.Spy;
-import org.mockito.ArgumentMatchers;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 public class CompleteTest {
 
     /* TODO: The following
